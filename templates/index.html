@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            background: #eef5ff;
+            border-radius: 8px;
+            word-wrap: break-word;
+        }
+
+        .result a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
+        }
+
+        .history-container {
+            margin-top: 20px;
+            width: 500px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .history-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .history-item p {
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .history-item a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            word-break: break-all;
+        }
+
+        .history-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>URL SHORTENER</h1>
+
+        <form method="post">
+            <input type="text" name="long_url" placeholder="Enter URL here">
+            <button type="submit">Short URL</button>
+        </form>
+
+        {% if short_url %}
+        <div class="result">
+            <p>Short URL:</p>
+            <a href="{{short_url}}" target="_blank">{{short_url}}</a>
+        </div>
+        {% endif %}
+
+    </div>
+    <div class="history-container">
+        <h2 class="history-title">URL History</h2>
+
+        {% if url_history %}
+        {% for url in url_history %}
+        <div class="history-item">
+            <p>Original URL: <a href="{{url.og_url}}" target="_blank">{{url.og_url}}</a></p>
+            <p>Short URL: <a href="/{{url.uni_id}}" target="_blank">
+                    http://localhost:5000/{{url.uni_id}}
+                </a></p>
+
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No URLs shortened yet.</p>
+        {% endif %}
+    </div>
+</body>
