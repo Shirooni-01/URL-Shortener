@@ -35,10 +35,10 @@ url-shortener/
   Screenshots
 
  # Home Page
-![Home Page](screenshots/home.png)
+![Home Page](screenshots/main_dashboard.png)
 
  # URL History
-![History](screenshots/history.png)
+![History](screenshots/History.png)
 
   Installation
 
