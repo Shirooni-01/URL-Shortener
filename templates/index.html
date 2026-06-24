@@ -150,13 +150,24 @@
     <div class="history-container">
         <h2 class="history-title">URL History</h2>
 
+
         {% if url_history %}
         {% for url in url_history %}
         <div class="history-item">
-            <p>Original URL: <a href="{{url.og_url}}" target="_blank">{{url.og_url}}</a></p>
-            <p>Short URL: <a href="/{{url.uni_id}}" target="_blank">
-                    http://localhost:5000/{{url.uni_id}}
-                </a></p>
+
+            <p>
+                Original URL:
+                <a href="{{ url[1] }}" target="_blank">
+                    {{ url[1] }}
+                </a>
+            </p>
+
+            <p>
+                Short URL:
+                <a href="/{{ url[0] }}" target="_blank">
+                    http://localhost:5000/{{ url[0] }}
+                </a>
+            </p>
 
         </div>
         {% endfor %}

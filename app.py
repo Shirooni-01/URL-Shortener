@@ -1,21 +1,43 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import random
+import sqlite3
 
 app = Flask(__name__)
 
-url_history = []
 
-keys = ['0','1','2','3','4','5','6','7','8','9','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+def init_db():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS urls(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            uni_id TEXT UNIQUE,
+            og_url TEXT
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+init_db()
+
+
+keys = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+
 def uniqueid():
     uni_id = ''
     for i in range(6):
-        uni_id += keys[random.randint(0,35)]
+        uni_id += keys[random.randint(0, 35)]
     return uni_id
 
-# shortlink = 'www.myshortlink.'
 
-@app.route('/',methods = ['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
+
+    short_url = None
 
     if request.method == 'POST':
 
@@ -28,38 +50,77 @@ def index():
 
             uni_id = uniqueid()
 
-            exist = False
+            conn = sqlite3.connect('database.db')
+            cursor = conn.cursor()
 
-            for url in url_history:
-                if uni_id == url['uni_id']:
-                    exist = True
-                    break
+            cursor.execute(
+                "SELECT * FROM urls WHERE uni_id=?",
+                (uni_id,)
+            )
+
+            exist = cursor.fetchone()
+
+            conn.close()
 
             if not exist:
-                url_history.append({
-                    'uni_id': uni_id,
-                    'og_url': og_url
-                })
+
+                conn = sqlite3.connect('database.db')
+                cursor = conn.cursor()
+
+                cursor.execute(
+                    "INSERT INTO urls (uni_id, og_url) VALUES (?, ?)",
+                    (uni_id, og_url)
+                )
+
+                conn.commit()
+                conn.close()
+
                 break
 
-        short_url = f"http://localhost:5000/{uni_id}"
-
-        return render_template(
-            'index.html',
-            short_url=short_url
-            ,url_history=url_history
+        short_url = url_for(
+            'shorturl',
+            uni_id=uni_id,
+            _external=True
         )
 
-    return render_template('index.html', url_history=url_history)
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT uni_id, og_url FROM urls ORDER BY id DESC"
+    )
+
+    url_history = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        'index.html',
+        short_url=short_url,
+        url_history=url_history
+    )
+
 
 @app.route('/<uni_id>')
 def shorturl(uni_id):
 
-    for url in url_history:
-        if url['uni_id'] == uni_id:
-            return redirect(url['og_url'])
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT og_url FROM urls WHERE uni_id=?",
+        (uni_id,)
+    )
+
+    url = cursor.fetchone()
+
+    conn.close()
+
+    if url:
+        return redirect(url[0])
 
     return "URL Not Found"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
