@@ -1,10 +1,10 @@
- URL Shortener
+ ###URL Shortener
 
 A simple and efficient URL Shortener built using Flask and SQLite.
 
 This application converts long URLs into short, shareable links and automatically redirects users to the original website when the shortened link is visited.
 
- Features
+ ##Features
 
 * Generate unique short URLs
 * Automatic redirection to original URLs
@@ -15,33 +15,16 @@ This application converts long URLs into short, shareable links and automaticall
 * Clean and responsive user interface
 * Duplicate short code prevention
 
- Tech Stack
+##Tech Stack
 
 * Python
 * Flask
 * SQLite
 * HTML
 * CSS
+  
 
- Screenshots
-
- Home Page
-
-Main interface where users can enter a URL and generate a shortened link.
-
- Generated Short URL
-
-Displays the newly created shortened URL.
-
- URL History
-
-Shows all previously shortened URLs stored in the database.
-
- Redirection Working
-
-Demonstrates successful redirection from a short URL to the original website.
-
- Project Structure
+## Project Structure
 
 
 url-shortener/
@@ -54,16 +37,19 @@ url-shortener/
 └── templates/
     └── index.html
 
- Home Page
+
+## Screenshots
+
+# Home Page
 
 ![Home Page](screenshots/main_dashboard.png)
 
- URL History
+# URL History
 
 ![History](screenshots/History.png)
 
 
- Installation
+## Installation
 
  1. Clone the Repository
 
@@ -95,7 +81,7 @@ python app.py
 http://localhost:5000
 ```
 
- Database Schema
+## Database Schema
 
 The application uses SQLite with the following table:
 
@@ -107,7 +93,7 @@ CREATE TABLE urls(
 );
 ```
 
- How It Works
+## How It Works
 
 1. User enters a long URL.
 2. The application generates a unique 6-character ID.
@@ -142,7 +128,7 @@ Redirects to:
 https://www.google.com
 ```
 
- Future Improvements
+## Future Improvements
 
 * Custom short URLs
 * Copy-to-clipboard button
@@ -152,7 +138,7 @@ https://www.google.com
 * QR code generation
 * REST API support
 
- Learning Outcomes
+## Learning Outcomes
 
 This project helped practice:
 
@@ -166,6 +152,6 @@ This project helped practice:
 * Jinja2 Templates
 * Responsive UI Design
 
- License
+## License
 
 This project is open-source and available for educational and learning purposes.
