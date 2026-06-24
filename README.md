@@ -27,6 +27,7 @@ This application converts long URLs into short, shareable links and automaticall
 ## Project Structure
 
 
+```text
 url-shortener/
 │
 ├── app.py
@@ -36,6 +37,7 @@ url-shortener/
 │
 └── templates/
     └── index.html
+```
 
 
 ## Screenshots
