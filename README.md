@@ -54,6 +54,14 @@ url-shortener/
 └── templates/
     └── index.html
 
+ Home Page
+
+![Home Page](screenshots/main_dashboard.png)
+
+ URL History
+
+![History](screenshots/History.png)
+
 
  Installation
 
