@@ -1,10 +1,10 @@
- ###URL Shortener
+ ### URL Shortener
 
 A simple and efficient URL Shortener built using Flask and SQLite.
 
 This application converts long URLs into short, shareable links and automatically redirects users to the original website when the shortened link is visited.
 
- ##Features
+ ## Features
 
 * Generate unique short URLs
 * Automatic redirection to original URLs
@@ -15,7 +15,7 @@ This application converts long URLs into short, shareable links and automaticall
 * Clean and responsive user interface
 * Duplicate short code prevention
 
-##Tech Stack
+## Tech Stack
 
 * Python
 * Flask
